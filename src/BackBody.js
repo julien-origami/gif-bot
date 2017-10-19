@@ -6,10 +6,10 @@ class BackBody extends Component {
     render() {
         return (
             <div className='row'>
-                <div className='col s6'>
+                <div className='col s4 no-padding'>
                     <ChatList />
                 </div>
-                <div className='col s6'>
+                <div className='col s8 no-padding'>
                     <MessengerBody />
                 </div>
             </div >

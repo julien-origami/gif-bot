@@ -1,65 +1,39 @@
 import React, { Component } from 'react'
-import { List, ListItem } from 'material-ui/List';
-import Divider from 'material-ui/Divider'
-import Avatar from 'material-ui/Avatar'
-import Subheader from 'material-ui/Subheader'
-import { pinkA200, transparent } from 'material-ui/styles/colors';
-
-const style = {
-    display: 'inline-block',
-    background: '#383636',
-    color: '#ffffff'
-}
-
-const style2 = {
-    color: '#ffffff'
-}
-
-const style3 = {
-    color: '#ffffff',
-    size: '24px',
-    weight: '400'
-}
+import color from './color.jpg'
 
 class ChatList extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { users: [] }
+        this.fetchUsers = this.fetchUsers.bind(this)
+        this.fetchUsers()
+    }
+
+    fetchUsers() {
+        fetch('http://192.168.43.20:4324/api/user')
+            .then(res => res.json())
+            .then(json => this.setState({ users: json }))
+            .catch(err => console.log(err))
+    }
+
+    getUserComponent(users) {
+        return users.map((user, i) => {
+            return (
+                <a href="#!" class="collection-item avatar active">
+                    <img src={ user.picture } class="circle responsive-img" />
+                    { user.name }
+                </a>
+            )
+        })
+    }
+
     render() {
+        console.log(this.state.users)
         return (
-            <div>
-                <List style={ style } desktop={ true } width={ 400 }>
-                    <Subheader style={ style3 }>Chat List</Subheader>
-                    <Divider />
-                    <ListItem style={ style2 }
-                        leftAvatar={
-                            <Avatar
-                                color={ pinkA200 } backgroundColor={ transparent }
-                                style={ { left: 8 } }
-                            >
-                                A
-                        </Avatar>
-                        }
-                        primaryText='Yohan Canac'
-                        rightAvatar={ <Avatar src="src/image/color-198892_960_720.jpg" /> }
-                        insetChildren={ true }
-                    />
-                    <ListItem style={ style2 }
-                        primaryText="Corentin Daniel"
-                        rightAvatar={ <Avatar src="src/image/color-198892_960_720.jpg" /> }
-                        insetChildren={ true }
-                    />
-                    <ListItem style={ style2 }
-                        primaryText="Jérémy Boisdron"
-                        rightAvatar={ <Avatar src="src/image/color-198892_960_720.jpg" /> }
-                        insetChildren={ true }
-                    />
-                    <ListItem style={ style2 }
-                        primaryText="Julien Pons"
-                        rightAvatar={ <Avatar src="src/image/color-198892_960_720.jpg" /> }
-                        insetChildren={ true }
-                        checked={ true }
-                    />
-                    <Divider />
-                </List>
-            </div >
+
+            <div class="collection">
+                { this.getUserComponent(this.state.users) }
+            </div>
         )
     }
 }
