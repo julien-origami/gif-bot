@@ -9,6 +9,10 @@ class ChatList extends Component {
         this.fetchUsers()
     }
 
+    selectUser(id){
+        this.props.onSelectUser(id)
+    }
+
     fetchUsers() {
         fetch('http://192.168.43.20:4324/api/user')
             .then(res => res.json())
@@ -19,19 +23,25 @@ class ChatList extends Component {
     getUserComponent(users) {
         return users.map((user, i) => {
             return (
-                <a href="#!" class="collection-item avatar active">
-                    <img src={ user.picture } class="circle responsive-img" />
-                    { user.name }
-                </a>
+                <div key={i} onClick={() => {this.selectUser(user.id)}} className='card-panel clickable grey s-padding s-margin lighten-5 z-depth-1'>
+                    <div className='row no-margin valign-wrapper'>
+                        <div className='col s3'>
+                            <img src={ user.picture } alt='' className='circle s-padding responsive-img' />
+                        </div>
+                        <div className='col s7'>
+                            <span className='black-text'>
+                                { user.name }
+                            </span>
+                        </div>
+                    </div>
+                </div>
             )
         })
     }
 
     render() {
-        console.log(this.state.users)
         return (
-
-            <div class="collection">
+            <div>
                 { this.getUserComponent(this.state.users) }
             </div>
         )

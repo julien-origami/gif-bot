@@ -5,16 +5,18 @@ import BackBody from './BackBody'
 import './index.css'
 
 class App extends Component {
-  render() {
-    return (
-      <div>
-        <MuiThemeProvider>
-          <NavBar />
-          <BackBody />
-        </MuiThemeProvider>
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div>
+                <MuiThemeProvider>
+                    <div>
+                        <NavBar />
+                        <BackBody />
+                    </div>
+                </MuiThemeProvider>
+            </div>
+        )
+    }
 }
 
 export default App
