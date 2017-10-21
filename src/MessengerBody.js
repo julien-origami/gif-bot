@@ -27,7 +27,6 @@ class MessengerBody extends Component {
     }
 
     render() {
-        console.log(this.props.messages)
         return (
             <div className='s-margin messenge-component'>
                 { this.getMessageComponent(this.props.messages) }
